@@ -1,15 +1,42 @@
-import { useState } from 'react'
+import { useState, useRef, useLayoutEffect } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [items] = useState(['foo', 'bar'])
+  const [inputVal, setInputVal] = useState('default input val')
+
+  const imageClick = () => {
+    console.log(inputVal);
+  }
+
+  const ref = useRef();
+
+  useLayoutEffect(() => {
+    const { current } = ref;
+
+    current.addEventListener('update', e =>
+      setInputVal(e.detail[0])
+    );
+  }, [ref]);
 
   return (
     <div className="App">
+      <hello-world
+        ref={ref}
+        data={inputVal}
+        items={JSON.stringify(items)}
+        items-for-vue={items}
+        msg="Web component in React proj"
+      >
+        <div slot="header">header</div>
+        <div>React slot</div>
+      </hello-world>
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
+        <p onClick={() => imageClick()}>Hello Vite + React!</p>
         <p>
           <button type="button" onClick={() => setCount((count) => count + 1)}>
             count is: {count}

@@ -12,7 +12,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'lib/main.js'),
+      entry: './src/main.ce.js',
       name: 'MyLib',
       fileName: (format) => `my-lib.${format}.js`
     },
