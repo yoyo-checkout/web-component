@@ -3,68 +3,57 @@ import logo from './logo.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [items] = useState(['foo', 'bar'])
   const [inputVal, setInputVal] = useState('default input val')
 
-  const imageClick = () => {
-    console.log(inputVal);
-  }
-
-  const ref = useRef();
+  const hellowWorldRef = useRef();
+  const cancelBtnRef = useRef();
+  const submitBtnRef = useRef();
 
   useLayoutEffect(() => {
-    const { current } = ref;
-
-    current.addEventListener('update', e =>
+    const { current: hellowWorld } = hellowWorldRef;
+    hellowWorld.addEventListener('update', e => {
+      e.stopImmediatePropagation()
       setInputVal(e.detail[0])
-    );
-  }, [ref]);
+    });
+
+    const { current: cancelBtn } = cancelBtnRef;
+    cancelBtn.addEventListener('custom-click', e => {
+      e.stopImmediatePropagation()
+      console.log('cancel')
+    });
+
+    const { current: submitBtn } = submitBtnRef;
+    submitBtn.addEventListener('custom-click', e => {
+      e.stopImmediatePropagation()
+      console.log('submit')
+    });
+  }, [hellowWorldRef, cancelBtnRef, submitBtnRef]);
 
   return (
     <div className="App">
-      <hello-world
-        ref={ref}
-        data={inputVal}
-        items={JSON.stringify(items)}
-        items-for-vue={items}
-        msg="Web component in React proj"
-      >
-        <div slot="header">header</div>
-        <div>React slot</div>
-      </hello-world>
-
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p onClick={() => imageClick()}>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
+        <p>Hello Vite + React!</p>
       </header>
+
+      <main>
+        <div className="buttons">
+          <my-button type="secondary" ref={cancelBtnRef}>
+            cancel
+          </my-button>
+          <my-button size="large" ref={submitBtnRef}>
+            submit
+          </my-button>
+        </div>
+
+        <my-hello-world
+          ref={hellowWorldRef}
+          data={inputVal}
+          items={JSON.stringify(items)}
+          items-for-vue={items}
+        />
+      </main>
     </div>
   )
 }

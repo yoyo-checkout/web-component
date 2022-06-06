@@ -4,24 +4,68 @@ import { ref } from 'vue'
 const items = ref(['foo', 'bar'])
 const inputVal = ref('default input val')
 
-function tmp () {
-  console.log(inputVal.value)
+function submit() {
+  console.log('submit')
+}
+function cancel() {
+  console.log('cancel')
 }
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" @click="tmp" />
+  <img alt="Vue logo" src="./assets/logo.png" />
+
+  <div class="buttons">
+    <div>
+      <div>directly add class to modify style of slot</div>
+      <my-button type="secondary">
+        <div slot="prefix">😂</div>
+        <div class="ml-1">Text</div>
+      </my-button>
+    </div>
+
+    <div>
+      <div>use [:part] to modify style inner web component</div>
+      <my-button type="secondary" class="use-part">
+        Text
+      </my-button>
+    </div>
+
+    <div>
+      <div>use [css var] to modify style inner web component</div>
+      <my-button type="secondary" class="use-css-var">
+        Text
+      </my-button>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <my-button type="secondary" @custom-click="cancel">
+      cancel
+    </my-button>
+    <my-button size="large" @custom-click="submit">
+      submit
+    </my-button>
+  </div>
+
+  <!-- TODO: input item -->
+
+  <!-- TODO: list item -->
+
   <!-- https://vuejs.org/guide/extras/web-components.html#using-custom-elements-in-vue -->
-  <hello-world
+  <my-hello-world
     :data="inputVal"
     :items="JSON.stringify(items)"
     .items-for-vue="items"
-    msg="Web component in Vue proj"
     @update="$e => inputVal = $e.detail[0]"
-  >
-    <div slot="header">header</div>
-    <div>Vue slot</div>
-  </hello-world>
+  />
+
+  <my-hello-world
+    :data="inputVal"
+    :items="JSON.stringify(items)"
+    .items-for-vue="items"
+    @update="$e => inputVal = $e.detail[0]"
+  />
 </template>
 
 <style>
@@ -36,13 +80,27 @@ function tmp () {
 </style>
 
 <style scoped>
-/* outside the shadow DOM */
-hello-world::part(foo) {
-  --h2-color: #42b883;
-  background: lightgray;
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
 }
 
-hello-world::part(header):hover {
-  color: red;
+.ml-1 {
+  margin-left: 1rem;
+}
+
+my-button.use-part::part(postfix) {
+  font-size: 28px;
+}
+
+my-button.use-part::part(postfix):hover {
+  opacity: 0;
+}
+
+my-button.use-css-var {
+  --postfix-font-size: 40px;
 }
 </style>
