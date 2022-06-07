@@ -60,7 +60,7 @@ function cancel() {
     <my-button type="secondary" @custom-click="cancel">
       cancel
     </my-button>
-    <my-button size="large" @custom-click="submit">
+    <my-button :disabled="inputVal === ''" size="large" @custom-click="submit">
       submit
     </my-button>
   </div>

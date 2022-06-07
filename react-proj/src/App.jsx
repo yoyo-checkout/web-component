@@ -51,7 +51,8 @@ function App() {
           <my-button type="secondary" ref={cancelBtnRef}>
             cancel
           </my-button>
-          <my-button size="large" ref={submitBtnRef}>
+          {/* NOTE: set attrs e.g. [disabled] to [false] is equal to [true] in HTML */}
+          <my-button {...inputVal === '' && { disabled: true }} size="large" ref={submitBtnRef}>
             submit
           </my-button>
         </div>
