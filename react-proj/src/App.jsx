@@ -38,6 +38,11 @@ function App() {
       </header>
 
       <main>
+        <my-list
+          array-items={items}
+          string-items={JSON.stringify(items)}
+        />
+
         <div className="buttons">
           <my-button type="secondary" ref={cancelBtnRef}>
             cancel
@@ -50,8 +55,6 @@ function App() {
         <my-hello-world
           ref={hellowWorldRef}
           data={inputVal}
-          items={JSON.stringify(items)}
-          items-for-vue={items}
         />
       </main>
     </div>

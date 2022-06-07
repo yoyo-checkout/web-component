@@ -15,6 +15,16 @@ function cancel() {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
 
+  <!-- list -->
+  <my-list
+    :array-items="items"
+    :string-items="JSON.stringify(items)"
+  />
+  <my-list
+    .array-items="items"
+  />
+
+  <!-- button -->
   <div class="buttons">
     <div>
       <div>directly add class to modify style of slot</div>
@@ -50,20 +60,9 @@ function cancel() {
 
   <!-- TODO: input item -->
 
-  <!-- TODO: list item -->
-
   <!-- https://vuejs.org/guide/extras/web-components.html#using-custom-elements-in-vue -->
   <my-hello-world
     :data="inputVal"
-    :items="JSON.stringify(items)"
-    .items-for-vue="items"
-    @update="$e => inputVal = $e.detail[0]"
-  />
-
-  <my-hello-world
-    :data="inputVal"
-    :items="JSON.stringify(items)"
-    .items-for-vue="items"
     @update="$e => inputVal = $e.detail[0]"
   />
 </template>
