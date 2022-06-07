@@ -5,7 +5,7 @@ const items = ref(['foo', 'bar'])
 const inputVal = ref('default input val')
 
 function submit() {
-  console.log('submit')
+  console.log(inputVal.value)
 }
 function cancel() {
   console.log('cancel')
@@ -49,6 +49,13 @@ function cancel() {
     </div>
   </div>
 
+  <!-- input -->
+  <my-input
+    :value="inputVal"
+    @update="$e => inputVal = $e.detail[0]"
+  />
+
+  <!-- form demo -->
   <div class="buttons">
     <my-button type="secondary" @custom-click="cancel">
       cancel
@@ -57,14 +64,6 @@ function cancel() {
       submit
     </my-button>
   </div>
-
-  <!-- TODO: input item -->
-
-  <!-- https://vuejs.org/guide/extras/web-components.html#using-custom-elements-in-vue -->
-  <my-hello-world
-    :data="inputVal"
-    @update="$e => inputVal = $e.detail[0]"
-  />
 </template>
 
 <style>
