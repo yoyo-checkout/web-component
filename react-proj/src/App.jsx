@@ -52,6 +52,7 @@ function App() {
             cancel
           </my-button>
           {/* NOTE: set attrs e.g. [disabled] to [false] is equal to [true] in HTML */}
+          {/* NOTE: https://github.com/vuejs/vue-web-component-wrapper */}
           <my-button {...inputVal === '' && { disabled: true }} size="large" ref={submitBtnRef}>
             submit
           </my-button>
