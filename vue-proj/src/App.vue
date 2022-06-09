@@ -27,24 +27,24 @@ function cancel() {
   <!-- button -->
   <div class="buttons">
     <div>
-      <div>directly add class to modify style of slot</div>
-      <my-button type="secondary">
-        <div slot="prefix">😂</div>
-        <div class="ml-1">Text</div>
+      <div>use [css var] to modify style inner web component</div>
+      <my-button type="secondary" class="use-css-var">
+        Text
       </my-button>
     </div>
 
     <div>
-      <div>use [:part] to modify style inner web component</div>
+      <div>use [::part] to modify style inner web component</div>
       <my-button type="secondary" class="use-part">
         Text
       </my-button>
     </div>
 
     <div>
-      <div>use [css var] to modify style inner web component</div>
-      <my-button type="secondary" class="use-css-var">
-        Text
+      <div>directly add class to modify style of slot</div>
+      <my-button type="secondary">
+        <div slot="prefix">😂</div>
+        <div class="ml-1">Text</div>
       </my-button>
     </div>
   </div>
@@ -90,15 +90,15 @@ function cancel() {
   margin-left: 1rem;
 }
 
+my-button.use-css-var {
+  --postfix-font-size: 40px;
+}
+
 my-button.use-part::part(postfix) {
   font-size: 28px;
 }
 
 my-button.use-part::part(postfix):hover {
   opacity: 0;
-}
-
-my-button.use-css-var {
-  --postfix-font-size: 40px;
 }
 </style>
