@@ -1,8 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const items = ref(['foo', 'bar'])
 const inputVal = ref('default input val')
+
+const submitBtnAttr = computed(() => {
+  return inputVal.value === '' ? { disabled: true } : {}
+})
 
 function submit() {
   console.log(inputVal.value)
@@ -60,7 +64,11 @@ function cancel() {
     <my-button type="secondary" @custom-click="cancel">
       cancel
     </my-button>
-    <my-button :disabled="inputVal === ''" size="large" @custom-click="submit">
+    <my-button
+      v-bind="submitBtnAttr"
+      size="large"
+      @custom-click="submit"
+    >
       submit
     </my-button>
   </div>
